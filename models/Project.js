@@ -1,6 +1,7 @@
-import mongoose from "mongoose";
+import mongooseInstance from "../config/mongooseInstance.js";
 
-const ProjectSchema = new mongoose.Schema(
+
+const ProjectSchema = new mongooseInstance.Schema(
   {
     title: { type: String, required: true },
     excerpt: { type: String, required: true },
@@ -12,4 +13,4 @@ const ProjectSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("Project", ProjectSchema);
+export default mongooseInstance.model("Project", ProjectSchema);

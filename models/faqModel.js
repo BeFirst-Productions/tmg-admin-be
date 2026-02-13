@@ -1,6 +1,7 @@
-import mongoose from "mongoose";
+import mongooseInstance from "../config/mongooseInstance.js";
 
-const faqSchema = new mongoose.Schema(
+
+const faqSchema = new mongooseInstance.Schema(
   {
     question: {
       type: String,
@@ -23,4 +24,4 @@ const faqSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const FAQ = mongoose.model("FAQ", faqSchema);
+export const FAQ = mongooseInstance.model("FAQ", faqSchema);

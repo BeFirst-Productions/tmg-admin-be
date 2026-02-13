@@ -1,10 +1,10 @@
 
-import mongoose from "mongoose";
+import mongooseInstance from "../config/mongooseInstance.js";
 import bcrypt from "bcrypt";
 
 const SALT_ROUNDS = 10;
 
-const userSchema = new mongoose.Schema(
+const userSchema = new mongooseInstance.Schema(
   {
     name: { type: String, required: true, trim: true },
     email: { type: String, required: true, unique: true, lowercase: true, trim: true },
@@ -34,5 +34,5 @@ userSchema.methods.matchPassword = function (enteredPassword) {
   return bcrypt.compare(enteredPassword, this.password);
 };
 
-const User = mongoose.models.User || mongoose.model("User", userSchema);
+const User = mongooseInstance.models.User || mongooseInstance.model("User", userSchema);
 export default User;

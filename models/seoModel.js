@@ -1,6 +1,7 @@
-import mongoose from "mongoose";
+import mongooseInstance from "../config/mongooseInstance.js";
 
-const seoSchema = new mongoose.Schema(
+
+const seoSchema = new mongooseInstance.Schema(
   {
     page: {
       type: String,
@@ -35,4 +36,4 @@ const seoSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const seo= mongoose.model("SeoMeta", seoSchema);
+export const seo= mongooseInstance.model("SeoMeta", seoSchema);
