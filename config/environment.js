@@ -1,7 +1,7 @@
 // config/environment.js
 export const config = {
   // Server
-  port: Number(process.env.PORT) || 8080,
+  port: Number(process.env.PORT) || 8084,
   nodeEnv: process.env.NODE_ENV || 'development',
   
   // Booleans
