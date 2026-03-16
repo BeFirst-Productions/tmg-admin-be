@@ -22,11 +22,11 @@ packageRoute.post(
 );
 
 
-packageRoute.get("/", authMiddleware, authorizeRoles("admin"), getAllPackages);
+packageRoute.get("/get-all-packages", authMiddleware, authorizeRoles("admin"), getAllPackages);
 
 
 packageRoute.get(
-  "/:id",
+  "/get-package/:id",
   authMiddleware,
   authorizeRoles("admin"),
   getPackageById
@@ -34,7 +34,7 @@ packageRoute.get(
 
 
 packageRoute.put(
-  "/:id",
+  "/update-package/:id",
   authMiddleware,
   authorizeRoles("admin"),
   uploadPackageImage.single("image"),
@@ -43,7 +43,7 @@ packageRoute.put(
 
 
 packageRoute.delete(
-  "/:id",
+  "/delete-package/:id",
   authMiddleware,
   authorizeRoles("admin"),
   deletePackage

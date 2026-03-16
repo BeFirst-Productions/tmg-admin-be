@@ -5,7 +5,7 @@ import { gallery } from "../../models/galleryModel.js";
 export const getGalleryImages = async (req, res) => {
   try {
    
-    const images = await gallery.find()
+    const images = await gallery.find().sort({ createdAt: -1 });
    
 
     res.json({
