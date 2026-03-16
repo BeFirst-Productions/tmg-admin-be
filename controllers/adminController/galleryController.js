@@ -9,13 +9,14 @@ export const addGalleryImage = async (req, res) => {
 
     const newImage = new gallery({
       image: req.file.path, 
+      public_id: req.file.filename,
     });
 
     const saved = await newImage.save();
 
-    res.json({
+    res.status(201).json({
       success: true,
-      message: "Image added successfully",
+      message: "Gallery image added successfully",
       data: saved,
     });
   } catch (error) {
@@ -30,9 +31,8 @@ export const addGalleryImage = async (req, res) => {
 
 export const getGalleryImages = async (req, res) => {
   try {
-      console.log(req.query);
-    const page = parseInt(req.query.page) || 1;       // default page = 1
-    const limit = parseInt(req.query.limit) || 8;     // default 8 images
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 8;
     
     const skip = (page - 1) * limit;
 
@@ -86,20 +86,24 @@ export const deleteGalleryImage = async (req, res) => {
       return res.status(404).json({ success: false, message: "Image not found" });
     }
 
-    if (deleted.image) {
-      try {
+    try {
+      if (deleted.public_id) {
+        await cloudinary.uploader.destroy(deleted.public_id);
+      } else if (deleted.image) {
+        // Fallback for older documents that don't have public_id
         const urlParts = deleted.image.split("/");
         const versionIndex = urlParts.findIndex((p) => p.startsWith("v"));
-
-        const publicId = urlParts
-          .slice(versionIndex + 1)
-          .join("/")
-          .replace(/\.[^/.]+$/, "");
-
-        await cloudinary.uploader.destroy(publicId);
-      } catch (err) {
-        console.warn("Cloudinary delete failed:", err.message);
+        if (versionIndex !== -1) {
+          const publicId = urlParts
+            .slice(versionIndex + 1)
+            .join("/")
+            .replace(/\.[^/.]+$/, "");
+          await cloudinary.uploader.destroy(publicId);
+        }
       }
+    } catch (err) {
+      console.warn("Cloudinary delete failed:", err.message);
+      // We don't fail the deletion process if Cloudinary fails
     }
 
     res.json({
@@ -110,7 +114,8 @@ export const deleteGalleryImage = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: error.message,
+      message: "Server error",
+      error: error.message,
     });
   }
 };

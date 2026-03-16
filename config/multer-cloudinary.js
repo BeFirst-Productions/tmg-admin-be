@@ -28,6 +28,17 @@ const ProjectsStorage = new CloudinaryStorage({
 
 export const uploadProjectImage = multer({ storage: ProjectsStorage });
 
+const GalleryStorage = new CloudinaryStorage({
+  cloudinary,
+  params: async (req, file) => ({
+    folder: "/TMG-GLOBAL/tmg_gallery",
+    allowed_formats: ["jpg", "jpeg", "png", "webp"],
+    public_id: `${Date.now()}-${file.originalname.split(".")[0]}`,
+  }),
+});
+
+export const uploadGalleryImage = multer({ storage: GalleryStorage });
+
 
 
 // const galleryStorage = new CloudinaryStorage({
@@ -49,3 +60,14 @@ export const uploadProjectImage = multer({ storage: ProjectsStorage });
 // });
 
 // export const uploadPackageImage = multer({ storage: packageStorage });
+
+const PackageStorage = new CloudinaryStorage({
+  cloudinary,
+  params: async (req, file) => ({
+    folder: "/TMG-GLOBAL/tmg_packages",
+    allowed_formats: ["jpg", "jpeg", "png", "webp"],
+    public_id: `${Date.now()}-${file.originalname.split(".")[0]}`,
+  }),
+});
+
+export const uploadPackageImage = multer({ storage: PackageStorage });

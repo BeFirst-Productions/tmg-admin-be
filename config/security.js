@@ -18,7 +18,7 @@ export const apiLimiter = rateLimit({
   message: 'Too many requests, please try again later.',
   standardHeaders: true,
   legacyHeaders: false,
-  skip: () => config.isDevelopment // Skip in development
+  skip: () => config.isDevelopment
 });
 
 export const authLimiter = rateLimit({

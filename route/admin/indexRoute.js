@@ -8,9 +8,9 @@ import projectRoute from './projectRoute.js'
 // import faqRoute from './faqRoute.js'
 // import enquiryRoute from './enquiryRoute.js'
 // import newsletterRoute from './newsletterRoute.js'
-// import packagesRoute from './packagesRoutes.js'
+import packageRoute from './packageRoute.js'
 // import seoRoute from './seoRoute.js'
-// import galleryRoute from './galleryRoute.js'
+import galleryRoute from './galleryRoute.js'
 // import heroRoute from './heroRoute.js'
 const adminroute =express.Router()
 adminroute.use('/user',userRoute)
@@ -22,8 +22,8 @@ adminroute.use('/projects', projectRoute);
 // adminroute.use('/faq',faqRoute)
 // adminroute.use('/enquiry',enquiryRoute)
 // adminroute.use('/newsletter',newsletterRoute)
-// adminroute.use('/packages',packagesRoute)
+adminroute.use('/packages',packageRoute)
 // adminroute.use('/seo',seoRoute)
-// adminroute.use('/gallery',galleryRoute)
+adminroute.use('/gallery',galleryRoute)
 // adminroute.use('/herosection',heroRoute)
 export default adminroute
