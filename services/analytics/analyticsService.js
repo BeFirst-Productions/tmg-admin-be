@@ -1,5 +1,6 @@
 // services/analytics/analyticsService.js (ESM)
 import { createGaClient } from '../../utils/gaClient.js';
+import { fetchSearchConsoleMetrics } from '../searchConsoleService.js';
 
 const GA_PROPERTY = process.env.GA4_PROPERTY_ID;
 if (!GA_PROPERTY) console.warn('GA4_PROPERTY_ID not set. Analytics will fail until set.');
